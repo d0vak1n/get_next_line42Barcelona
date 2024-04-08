@@ -6,7 +6,7 @@
 /*   By: ramoreno <ramoreno@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 13:59:27 by ramoreno          #+#    #+#             */
-/*   Updated: 2024/04/03 14:02:12 by ramoreno         ###   ########.fr       */
+/*   Updated: 2024/04/08 10:02:13 by ramoreno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 # include <unistd.h>
 # include <limits.h>
 # include <stdarg.h>
+# include <fcntl.h>
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd);
 
 #endif
