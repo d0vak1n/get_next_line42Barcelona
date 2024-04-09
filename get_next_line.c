@@ -13,9 +13,52 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*overbuffer;
+	char		*buffer;
 	char		*line;
 
+	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!fd || fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return	(NULL);
+		return (NULL);
+
+
+	return (line);
+}
+
+//nextline functions
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	len;
+
+	i = 0;
+	len = 0;
+	if (src != NULL)
+	{
+		len = ft_strlen(src);
+		if (dst != NULL && dstsize != 0)
+		{
+			while (i < len && i < (dstsize - 1))
+			{
+				dst[i] = src[i];
+				i++;
+			}
+			dst[i] = '\0';
+		}
+	}
+	return (ft_strlen(src));
+}
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*res;
+
+	if (!s1 || !s2)
+		return (NULL);
+	res = (char *)malloc(((ft_strlen(s1) + ft_strlen(s2)) + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	ft_strlcpy(res, s1, ft_strlen(s1) + 1);
+	ft_strlcat(res, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	return (res);
 }
