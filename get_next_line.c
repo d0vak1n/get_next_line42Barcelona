@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
+static char *fill_line(char *buffer, int fd, char *overbuffer);
+
 char	*get_next_line(int fd)
 {
 	static char	*overbuffer;
@@ -19,14 +21,49 @@ char	*get_next_line(int fd)
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!fd || fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		free(buffer);
 		return (NULL);
-
+	}
+	if (!buffer)
+		return (NULL);
+	line = fill_line(buffer, fd, overbuffer);
+	free(buffer);
 
 	return (line);
 }
 
-//nextline functions
+static char *fill_line(char *buffer, int fd, char *overbuffer)
+{
+	ssize_t bytesread;
+	char *temp;
 
+	bytesread = 1;
+	while (bytesread != (0 | -1))
+	{
+		bytesread = read(fd, buffer, BUFFER_SIZE);
+		if (bytesread == -1)
+		{
+			
+			break ;
+		}
+		else if (bytesread == 0)
+			break ;
+		buffer[bytesread] = '\0';
+		if (!overbuffer)
+			overbuffer = ft_strdup("");
+		temp = overbuffer;
+		overbuffer = ft_strjoin(temp, buffer);
+		free(temp);
+		if (ft_strchr(buffer, '\n'))
+			break ;
+	}
+	return (overbuffer);
+}
+
+
+
+//extra functions
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
