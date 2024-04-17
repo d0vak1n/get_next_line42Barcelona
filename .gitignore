@@ -3,3 +3,5 @@ test
 a.out
 *.dSYM
 *.txt
+/.vscode
+*.json
