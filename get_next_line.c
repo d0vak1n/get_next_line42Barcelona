@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-static char *_fill_line(char *buffer, int fd, char *overbuffer);
-static char *_set_line(char *line);
+static char	*_fill_line(char *buffer, int fd, char *overbuffer);
+static char	*_set_line(char *line);
 
 char	*get_next_line(int fd)
 {
@@ -36,20 +36,17 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-static char *_fill_line(char *buffer, int fd, char *overbuffer)
+static char	*_fill_line(char *buffer, int fd, char *overbuffer)
 {
-	ssize_t bytesread;
-	char *temp;
+	ssize_t	bytesread;
+	char	*temp;
 
 	bytesread = 1;
 	while (bytesread != (0 | -1))
 	{
 		bytesread = read(fd, buffer, BUFFER_SIZE);
 		if (bytesread == -1)
-		{
-			
 			break ;
-		}
 		else if (bytesread == 0)
 			break ;
 		buffer[bytesread] = '\0';
@@ -64,10 +61,10 @@ static char *_fill_line(char *buffer, int fd, char *overbuffer)
 	return (overbuffer);
 }
 
-static char *_set_line(char *line)
+static char	*_set_line(char *line)
 {
-	char *overbuffer;
-	int	i;
+	char	*overbuffer;
+	int		i;
 
 	i = 0;
 	while (line[i] != '\n' && line[i] != '\0')
@@ -83,8 +80,8 @@ static char *_set_line(char *line)
 	line[i + 1] = '\0';
 	return (overbuffer);
 }
-//extra functions
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+
+ssize_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	len;
@@ -106,6 +103,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	}
 	return (ft_strlen(src));
 }
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*res;

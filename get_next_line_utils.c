@@ -23,6 +23,7 @@ size_t	ft_strlen(const char *s)
 	}
 	return (count);
 }
+
 char	*ft_strchr(const char *s, int c)
 {
 	size_t	i;
@@ -38,6 +39,7 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (NULL);
 }
+
 char	*ft_strdup(const char *s1)
 {
 	char	*str;
@@ -57,6 +59,7 @@ char	*ft_strdup(const char *s1)
 	result[i] = '\0';
 	return (result);
 }
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	unsigned int	i;
@@ -81,6 +84,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	subs[i] = '\0';
 	return (subs);
 }
+
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
