@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-static char *fill_line(char *buffer, int fd, char *overbuffer);
+static char *_fill_line(char *buffer, int fd, char *overbuffer);
+static char *_set_line(char *line);
 
 char	*get_next_line(int fd)
 {
@@ -27,13 +28,15 @@ char	*get_next_line(int fd)
 	}
 	if (!buffer)
 		return (NULL);
-	line = fill_line(buffer, fd, overbuffer);
+	line = _fill_line(buffer, fd, overbuffer);
 	free(buffer);
-
+	if (!line)
+		return (NULL);
+	overbuffer = _set_line(line);
 	return (line);
 }
 
-static char *fill_line(char *buffer, int fd, char *overbuffer)
+static char *_fill_line(char *buffer, int fd, char *overbuffer)
 {
 	ssize_t bytesread;
 	char *temp;
@@ -61,8 +64,25 @@ static char *fill_line(char *buffer, int fd, char *overbuffer)
 	return (overbuffer);
 }
 
+static char *_set_line(char *line)
+{
+	char *overbuffer;
+	int	i;
 
-
+	i = 0;
+	while (line[i] != '\n' && line[i] != '\0')
+		i++;
+	if (line[i] == '\0' || line[i] == '\0')
+		return (NULL);
+	overbuffer = ft_substr(line, i + 1, ft_strlen(line) - i);
+	if (*overbuffer == '\0')
+	{
+		free(overbuffer);
+		overbuffer = NULL;
+	}
+	line[i + 1] = '\0';
+	return (overbuffer);
+}
 //extra functions
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
