@@ -79,7 +79,7 @@ static char	*_set_line(char *line)
 	if (line[i] == '\0' || line[1] == '\0')
 		return (NULL);
 	overbuffer = ft_substr(line, i + 1, ft_strlen(line) - i);
-	if (*overbuffer == '\0')
+	if (!overbuffer || *overbuffer == '\0')
 	{
 		free(overbuffer);
 		overbuffer = NULL;
