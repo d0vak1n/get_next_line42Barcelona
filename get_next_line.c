@@ -21,7 +21,7 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!fd || fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
 		free(overbuffer);
 		free(buffer);
