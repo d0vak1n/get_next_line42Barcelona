@@ -23,7 +23,10 @@ char	*get_next_line(int fd)
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!fd || fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
+		free(overbuffer);
 		free(buffer);
+		overbuffer = NULL;
+		buffer = NULL;
 		return (NULL);
 	}
 	if (!buffer)
@@ -42,11 +45,14 @@ static char	*_fill_line(char *buffer, int fd, char *overbuffer)
 	char	*temp;
 
 	bytesread = 1;
-	while (bytesread != (0 | -1))
+	while (bytesread > 0)
 	{
 		bytesread = read(fd, buffer, BUFFER_SIZE);
 		if (bytesread == -1)
-			break ;
+		{
+			free(overbuffer);
+			return (NULL);
+		}
 		else if (bytesread == 0)
 			break ;
 		buffer[bytesread] = '\0';
@@ -55,6 +61,7 @@ static char	*_fill_line(char *buffer, int fd, char *overbuffer)
 		temp = overbuffer;
 		overbuffer = ft_strjoin(temp, buffer);
 		free(temp);
+		temp = NULL;
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
@@ -69,7 +76,7 @@ static char	*_set_line(char *line)
 	i = 0;
 	while (line[i] != '\n' && line[i] != '\0')
 		i++;
-	if (line[i] == '\0' || line[i] == '\0')
+	if (line[i] == '\0' || line[1] == '\0')
 		return (NULL);
 	overbuffer = ft_substr(line, i + 1, ft_strlen(line) - i);
 	if (*overbuffer == '\0')
